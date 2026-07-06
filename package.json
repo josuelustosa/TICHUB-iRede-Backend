@@ -1,0 +1,31 @@
+{
+  "name": "tichub-irede-backend",
+  "version": "1.0.0",
+  "description": "Este repositório contém as atividades desenvolvidas no Módulo Backend do programa TIC Hub 12: Programação Fullstack. O programa foi desenvolvido por Softex, Instituto iRede, UECE, IFCE e MCTI.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsx watch src/main.ts",
+    "build": "tsc",
+    "start": "node dist/main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/josuelustosa/TICHUB-iRede-Backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/josuelustosa/TICHUB-iRede-Backend/issues"
+  },
+  "homepage": "https://github.com/josuelustosa/TICHUB-iRede-Backend#readme",
+  "devDependencies": {
+    "@types/node": "^26.1.0",
+    "tsx": "^4.23.0"
+  },
+  "dependencies": {
+    "express": "^5.2.1",
+    "typescript": "^6.0.3"
+  }
+}
