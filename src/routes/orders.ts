@@ -1,8 +1,9 @@
 import { Router } from "express";
 import type { Request, Response } from "express";
-import { orders, generateOrderId } from "../mocks/orders.js";
+import { ORDERS, generateOrderId } from "../mocks/orders.js";
 import { validatePositiveId } from "../middlewares/validatePositiveId.js";
 import { validateBodyNotEmpty } from "../middlewares/validateBodyNotEmpty.js";
+import { OrderStatus } from "../types/index.js";
 import type { Order } from "../types/index.js";
 
 const router = Router();
@@ -35,10 +36,10 @@ router.post("/", validateBodyNotEmpty, (req: Request, res: Response): void => {
     id: generateOrderId(),
     clientName,
     productIds,
-    status: "pendente",
+    status: OrderStatus.PENDENTE,
   };
 
-  orders.push(newOrder);
+  ORDERS.push(newOrder);
 
   res.status(201).json(newOrder);
 });
@@ -46,7 +47,7 @@ router.post("/", validateBodyNotEmpty, (req: Request, res: Response): void => {
 /**
  * PATCH /orders/:id
  * Atualizar o status de um pedido
- * Body: { status: string }
+ * Body: { status: OrderStatus }
  */
 router.patch(
   "/:id",
@@ -54,8 +55,8 @@ router.patch(
   validateBodyNotEmpty,
   (req: Request, res: Response): void => {
     const { id } = req.params;
-    const { status } = req.body;
-    const orderId = parseInt(id, 10);
+    const status: OrderStatus = req.body.status;
+    const orderId = parseInt(id as string, 10);
 
     if (!status) {
       res.status(400).json({
@@ -64,7 +65,15 @@ router.patch(
       return;
     }
 
-    const order = orders.find((o) => o.id === orderId);
+    if (!Object.values(OrderStatus).includes(status)) {
+      res.status(400).json({
+        error: "Status inválido.",
+        allowedValues: Object.values(OrderStatus),
+      });
+      return;
+    }
+
+    const order = ORDERS.find((o) => o.id === orderId);
 
     if (order) {
       order.status = status;
@@ -88,12 +97,12 @@ router.delete(
   validatePositiveId,
   (req: Request, res: Response): void => {
     const { id } = req.params;
-    const orderId = parseInt(id, 10);
+    const orderId = parseInt(id as string, 10);
 
-    const orderIndex = orders.findIndex((o) => o.id === orderId);
+    const orderIndex = ORDERS.findIndex((o) => o.id === orderId);
 
     if (orderIndex !== -1) {
-      orders.splice(orderIndex, 1);
+      ORDERS.splice(orderIndex, 1);
       res.status(204).send();
     } else {
       res.status(404).json({

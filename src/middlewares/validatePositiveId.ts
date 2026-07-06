@@ -11,7 +11,7 @@ export function validatePositiveId(
   next: NextFunction,
 ): void {
   const { id } = req.params;
-  const numId = parseInt(id, 10);
+  const numId = parseInt(id as string, 10);
 
   if (numId < 0) {
     res.status(400).json({

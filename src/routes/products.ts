@@ -15,7 +15,7 @@ router.get("/", (req: Request, res: Response): void => {
 
   if (category) {
     const filtered = PRODUCTS.filter(
-      (product) => product.category === category,
+      (product) => product.category.name === category,
     );
     res.status(200).json(filtered);
   } else {
@@ -30,7 +30,7 @@ router.get("/", (req: Request, res: Response): void => {
  */
 router.get("/:id", validatePositiveId, (req: Request, res: Response): void => {
   const { id } = req.params;
-  const productId = parseInt(id, 10);
+  const productId = parseInt(id as string, 10);
 
   const product = PRODUCTS.find((p) => p.id === productId);
 
