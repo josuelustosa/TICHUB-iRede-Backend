@@ -1,11 +1,24 @@
-const express = require("express");
+import express from "express";
+import type { Request, Response } from "express";
+import productsRouter from "./routes/products.js";
+import ordersRouter from "./routes/orders.js";
+
 const app = express();
 const port = 3000;
 
-app.get("/", (req, res) => {
+// Middleware para parsing JSON
+app.use(express.json());
+
+// Rota raiz
+app.get("/", (req: Request, res: Response) => {
   res.send("Hello, world! Here is an Express API running...");
 });
 
+// Registro dos routers
+app.use("/products", productsRouter);
+app.use("/orders", ordersRouter);
+
+// Inicializar servidor
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+  console.log(`🚀 Servidor rodando em http://localhost:${port}`);
 });
