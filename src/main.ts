@@ -2,12 +2,16 @@ import express from "express";
 import type { Request, Response } from "express";
 import productsRouter from "./routes/products.js";
 import ordersRouter from "./routes/orders.js";
+import { loggerMiddleware } from "./middlewares/logger.js";
 
 const app = express();
 const port = 3000;
 
 // Middleware para parsing JSON
 app.use(express.json());
+
+// Middleware de logging
+app.use(loggerMiddleware);
 
 // Rota raiz
 app.get("/", (req: Request, res: Response) => {
