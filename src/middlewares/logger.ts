@@ -9,13 +9,10 @@ export function loggerMiddleware(
   res: Response,
   next: NextFunction,
 ): void {
-  // Obter data e hora atual
   const now = new Date();
   const dateTimeString = now.toLocaleString("pt-BR");
 
-  // Exibir log: [DATA] MÉTODO /URL
   console.log(`[${dateTimeString}] ${req.method} ${req.originalUrl}`);
 
-  // Passar para o próximo middleware/rota
   next();
 }
