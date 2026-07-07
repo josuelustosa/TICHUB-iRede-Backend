@@ -1,7 +1,7 @@
 import express from "express";
 import type { Request, Response } from "express";
 import categoryRouter from "./routes/category.router.js";
-import productsRouter from "./routes/products.js";
+import productRouter from "./routes/product.router.js";
 import ordersRouter from "./routes/orders.js";
 import { loggerMiddleware } from "./middlewares/logger.js";
 
@@ -21,7 +21,7 @@ app.get("/", (req: Request, res: Response) => {
 
 // Registro dos routers
 app.use("/category", categoryRouter);
-app.use("/products", productsRouter);
+app.use("/products", productRouter);
 app.use("/orders", ordersRouter);
 
 // Inicializar servidor
