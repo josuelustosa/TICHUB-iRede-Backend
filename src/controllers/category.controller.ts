@@ -1,30 +1,15 @@
 import type { Request, Response } from "express";
 import { CATEGORIES, generateCategoryId } from "../mocks/categories.js";
 import type { Category } from "../types/index.js";
-import {
-  categoryParamsSchema,
-  categoryQueryPaginationSchema,
-  createCategorySchema,
-  updateCategorySchema,
-} from "../schemas/category.schema.js";
 
 /**
  * GET /category
  * Lista categorias com paginação
- * Query: ?page=1&size=10
+ * Query validada pelo middleware: ?page=1&size=10
  */
 export function listCategories(req: Request, res: Response): void {
-  const result = categoryQueryPaginationSchema.safeParse(req.query);
-
-  if (!result.success) {
-    res.status(400).json({
-      error: "Parâmetros de paginação inválidos",
-      details: result.error.flatten(),
-    });
-    return;
-  }
-
-  const { page, size } = result.data;
+  // query já foi validada pelo middleware validateData
+  const { page, size } = req.query as any;
   const start = (page - 1) * size;
   const end = start + size;
   const data = CATEGORIES.slice(start, end);
@@ -40,19 +25,10 @@ export function listCategories(req: Request, res: Response): void {
 /**
  * GET /category/:id
  * Busca uma categoria por ID (UUID)
+ * Params validados pelo middleware: validateData
  */
 export function getCategoryById(req: Request, res: Response): void {
-  const result = categoryParamsSchema.safeParse(req.params);
-
-  if (!result.success) {
-    res.status(400).json({
-      error: "ID inválido",
-      details: result.error.flatten(),
-    });
-    return;
-  }
-
-  const { id } = result.data;
+  const { id } = req.params as any;
   const category = CATEGORIES.find((c) => c.id === id);
 
   if (!category) {
@@ -69,19 +45,10 @@ export function getCategoryById(req: Request, res: Response): void {
 /**
  * POST /category
  * Cria uma nova categoria
+ * Body validado pelo middleware: validateData
  */
 export function createCategory(req: Request, res: Response): void {
-  const result = createCategorySchema.safeParse(req.body);
-
-  if (!result.success) {
-    res.status(400).json({
-      error: "Dados de categoria inválidos",
-      details: result.error.flatten(),
-    });
-    return;
-  }
-
-  const { name } = result.data;
+  const { name } = req.body as any;
   const newCategory: Category = {
     id: generateCategoryId(),
     name,
@@ -95,30 +62,11 @@ export function createCategory(req: Request, res: Response): void {
 /**
  * PUT /category/:id
  * Atualiza uma categoria completa
+ * Params e Body validados pelo middleware: validateData
  */
 export function updateCategory(req: Request, res: Response): void {
-  const paramsResult = categoryParamsSchema.safeParse(req.params);
-
-  if (!paramsResult.success) {
-    res.status(400).json({
-      error: "ID inválido",
-      details: paramsResult.error.flatten(),
-    });
-    return;
-  }
-
-  const bodyResult = updateCategorySchema.safeParse(req.body);
-
-  if (!bodyResult.success) {
-    res.status(400).json({
-      error: "Dados de categoria inválidos",
-      details: bodyResult.error.flatten(),
-    });
-    return;
-  }
-
-  const { id } = paramsResult.data;
-  const { name } = bodyResult.data;
+  const { id } = req.params as any;
+  const { name } = req.body as any;
 
   const category = CATEGORIES.find((c) => c.id === id);
 
@@ -138,19 +86,10 @@ export function updateCategory(req: Request, res: Response): void {
 /**
  * DELETE /category/:id
  * Remove uma categoria
+ * Params validados pelo middleware: validateData
  */
 export function deleteCategory(req: Request, res: Response): void {
-  const result = categoryParamsSchema.safeParse(req.params);
-
-  if (!result.success) {
-    res.status(400).json({
-      error: "ID inválido",
-      details: result.error.flatten(),
-    });
-    return;
-  }
-
-  const { id } = result.data;
+  const { id } = req.params as any;
   const index = CATEGORIES.findIndex((c) => c.id === id);
 
   if (index === -1) {

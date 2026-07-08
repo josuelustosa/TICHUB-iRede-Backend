@@ -2,29 +2,14 @@ import type { Request, Response } from "express";
 import { PRODUCTS } from "../mocks/products.js";
 import { CATEGORIES } from "../mocks/categories.js";
 import type { Product } from "../types/index.js";
-import {
-  productParamsSchema,
-  productQuerySchema,
-  createProductSchema,
-} from "../schemas/product.schema.js";
 
 /**
  * GET /products
  * Lista produtos com filtro opcional por categoria
- * Query: ?category=<categoryId>
+ * Query validada pelo middleware: ?category=<categoryId>
  */
 export function listProducts(req: Request, res: Response): void {
-  const result = productQuerySchema.safeParse(req.query);
-
-  if (!result.success) {
-    res.status(400).json({
-      error: "Parâmetros de query inválidos",
-      details: result.error.flatten(),
-    });
-    return;
-  }
-
-  const { category } = result.data;
+  const { category } = req.query as any;
   let data = PRODUCTS;
 
   if (category) {
@@ -37,20 +22,10 @@ export function listProducts(req: Request, res: Response): void {
 /**
  * POST /products
  * Cria um novo produto
- * Body: { name, price, categoryId }
+ * Body validado pelo middleware: { name, price, categoryId }
  */
 export function createProduct(req: Request, res: Response): void {
-  const result = createProductSchema.safeParse(req.body);
-
-  if (!result.success) {
-    res.status(400).json({
-      error: "Dados de produto inválidos",
-      details: result.error.flatten(),
-    });
-    return;
-  }
-
-  const { name, price, categoryId } = result.data;
+  const { name, price, categoryId } = req.body as any;
 
   const category = CATEGORIES.find((c) => c.id === categoryId);
   if (!category) {
@@ -76,19 +51,10 @@ export function createProduct(req: Request, res: Response): void {
 /**
  * DELETE /products/:id
  * Remove um produto
+ * Params validados pelo middleware
  */
 export function deleteProduct(req: Request, res: Response): void {
-  const result = productParamsSchema.safeParse(req.params);
-
-  if (!result.success) {
-    res.status(400).json({
-      error: "ID inválido",
-      details: result.error.flatten(),
-    });
-    return;
-  }
-
-  const { id } = result.data;
+  const { id } = req.params as any;
   const index = PRODUCTS.findIndex((p) => p.id === id);
 
   if (index === -1) {
