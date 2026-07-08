@@ -18,7 +18,7 @@ A Residência em TIC 12 é um programa de capacitação profissional e tecnológ
 ## 💻 Sobre o Projeto
 
 - Objetivo do Módulo: Desenvolver o backend de uma API REST.
-- Tecnologias Utilizadas: Node.js, Express 5 e TypeScript.
+- Tecnologias Utilizadas: Node.js, Express (v5), TypeScript e Zod (v4).
 
 ## ⚙️ Configuração do Projeto
 
