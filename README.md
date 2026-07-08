@@ -10,14 +10,15 @@ A Residência em TIC 12 é um programa de capacitação profissional e tecnológ
 
 ## 📂 Organização das Atividades
 
-| Atividade                                                    | Branch                     |
-| ------------------------------------------------------------- | -------------------------- |
-| Atividade 6: Roteamento REST com Express e TypeScript          | `atv-6/intro-backend`      |
+| Atividade                                                    | Branch                |
+| ------------------------------------------------------------ | --------------------- |
+| Atividade 6: Roteamento REST com Express e TypeScript        | `atv-6/intro-backend` |
+| Atividade 7: Estruturação, Controladores e Validação com Zod | `atv-7/controllers`   |
 
 ## 💻 Sobre o Projeto
 
 - Objetivo do Módulo: Desenvolver o backend de uma API REST.
-- Tecnologias Utilizadas: Node.js, Express 5 e TypeScript.
+- Tecnologias Utilizadas: Node.js, Express (v5), TypeScript e Zod (v4).
 
 ## ⚙️ Configuração do Projeto
 
@@ -46,13 +47,28 @@ npm run dev
 http://localhost:3000
 ```
 
-## 👀 Observações da Atividade
+## 👀 Observações das Atividades
 
-Todos os critérios e desafios para a entrega foram atendidos conforme o escopo do sistema. Foram implementados os endpoints de **Produtos** (`/products`) e **Pedidos** (`/orders`), praticando semântica REST, Query String, Route Params, Body e middlewares customizados (logger e validações).
+### Atividade 6: Roteamento REST
 
-Mais detalhes técnicos sobre a implementação estão disponíveis em [docs/contexto-ia-atv_06.md](docs/contexto-ia-atv_06.md).
+Implementação dos endpoints de **Produtos** (`/products`) e **Pedidos** (`/orders`), praticando semântica REST, Query String, Route Params, Body e middlewares customizados (logger e validações).
+
+Mais detalhes em [docs/contexto-ia-atv_06.md](docs/contexto-ia-atv_06.md).
+
+### Atividade 7: Estruturação, Controladores e Validação com Zod
+
+Implementação de uma **arquitetura de 3 camadas** (routers → controllers → schemas) aplicando validação centralizada com **Zod**.
+
+- **Schemas Centralizados:** criação de `src/schemas/` com validações Zod reutilizáveis
+- **Controllers Limpos:** handlers focados em lógica de negócio, sem duplicação de validação
+- **Middleware Genérico:** `validateData` para reutilização em qualquer rota (params, query, body)
+- **UUIDs:** migração de IDs numéricos para UUID strings (padrão real de produção)
+- **Entidade Category:** CRUD completo com 5 endpoints e paginação
+- **Refatoração de Products:** aplicação do novo padrão com 3 handlers
+- **Challenge Realizado:** middleware genérico elimina ~50+ linhas de código duplicado
+
+Mais detalhes técnicos em [docs/contexto-ia-atv_07.md](docs/contexto-ia-atv_07.md).
 
 ## 📃 Certificado de Conclusão
 
 Status do Programa: Em andamento.
-

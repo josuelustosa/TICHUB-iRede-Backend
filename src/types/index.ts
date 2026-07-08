@@ -1,12 +1,10 @@
-// Tipos compartilhados da aplicação
-
 export interface Category {
-  id: number;
+  id: string; // UUID
   name: string;
 }
 
 export interface Product {
-  id: number;
+  id: string; // UUID
   name: string;
   category: Category;
   price: number;
