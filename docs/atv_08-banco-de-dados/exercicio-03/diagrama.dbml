@@ -1,0 +1,37 @@
+Table Garcom {
+  garcom_id int [pk]
+  nome varchar
+  turno varchar
+}
+
+Table Mesa {
+  mesa_id int [pk]
+  numero int
+}
+
+Table Produto {
+  produto_id int [pk]
+  nome varchar
+  preco decimal
+}
+
+Table Pedido {
+  pedido_id int [pk]
+  mesa_id int [not null]
+  garcom_id int [not null]
+}
+
+Table ItemPedido {
+  pedido_id int [not null]
+  produto_id int [not null]
+  quantidade int [not null]
+
+  indexes {
+    (pedido_id, produto_id) [pk]
+  }
+}
+
+Ref: Pedido.mesa_id > Mesa.mesa_id
+Ref: Pedido.garcom_id > Garcom.garcom_id
+Ref: ItemPedido.pedido_id > Pedido.pedido_id
+Ref: ItemPedido.produto_id > Produto.produto_id

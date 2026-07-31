@@ -1,0 +1,59 @@
+Table PlanoSaude {
+  plano_id int [pk]
+  nome varchar
+  cobertura decimal
+}
+
+Table Paciente {
+  paciente_id int [pk]
+  nome varchar
+  cpf varchar
+  plano_id int [not null]
+}
+
+Table Especialidade {
+  especialidade_id int [pk]
+  nome varchar
+}
+
+Table Medico {
+  medico_id int [pk]
+  nome varchar
+  crm varchar
+  especialidade_id int [not null]
+}
+
+Table Sala {
+  sala_id int [pk]
+  numero int
+  andar int
+}
+
+Table Consulta {
+  consulta_id int [pk]
+  paciente_id int [not null]
+  medico_id int [not null]
+  sala_id int [not null]
+}
+
+Table Procedimento {
+  procedimento_id int [pk]
+  nome varchar
+}
+
+Table ConsultaProcedimento {
+  consulta_id int [not null]
+  procedimento_id int [not null]
+
+  indexes {
+    (consulta_id, procedimento_id) [pk]
+  }
+}
+
+Ref: Paciente.plano_id > PlanoSaude.plano_id
+Ref: Medico.especialidade_id > Especialidade.especialidade_id
+Ref: Consulta.paciente_id > Paciente.paciente_id
+Ref: Consulta.medico_id > Medico.medico_id
+Ref: Consulta.sala_id > Sala.sala_id
+Ref: ConsultaProcedimento.consulta_id > Consulta.consulta_id
+Ref: ConsultaProcedimento.procedimento_id > Procedimento.procedimento_id

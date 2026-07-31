@@ -1,0 +1,20 @@
+Table Departamento {
+  departamento_id int [pk]
+  nome varchar
+  gerente varchar
+}
+
+Table Vendedor {
+  vendedor_id int [pk]
+  vendedor_nome varchar
+  departamento_id int [not null]
+}
+
+Table Venda {
+  venda_id int [pk]
+  vendedor_id int [not null]
+  valor_venda decimal
+}
+
+Ref: Vendedor.departamento_id > Departamento.departamento_id
+Ref: Venda.vendedor_id > Vendedor.vendedor_id
