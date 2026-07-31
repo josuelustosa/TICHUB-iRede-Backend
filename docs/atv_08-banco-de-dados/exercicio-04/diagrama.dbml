@@ -1,0 +1,23 @@
+Table Livro {
+  livro_id int [pk]
+  titulo varchar
+  isbn varchar
+}
+
+Table Usuario {
+  usuario_id int [pk]
+  email varchar
+}
+
+Table Emprestimo {
+  livro_id int
+  usuario_id int
+  data_emprestimo date
+
+  indexes {
+    (livro_id, usuario_id) [pk]
+  }
+}
+
+Ref: Emprestimo.livro_id > Livro.livro_id
+Ref: Emprestimo.usuario_id > Usuario.usuario_id

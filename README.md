@@ -14,6 +14,7 @@ A Residência em TIC 12 é um programa de capacitação profissional e tecnológ
 | ------------------------------------------------------------ | --------------------- |
 | Atividade 6: Roteamento REST com Express e TypeScript        | `atv-6/intro-backend` |
 | Atividade 7: Estruturação, Controladores e Validação com Zod | `atv-7/controllers`   |
+| Atividade 8: Normalização de Dados e Arquitetura de Software | `atv-8/banco-de-dados` |
 
 ## 💻 Sobre o Projeto
 
@@ -68,6 +69,19 @@ Implementação de uma **arquitetura de 3 camadas** (routers → controllers →
 - **Challenge Realizado:** middleware genérico elimina ~50+ linhas de código duplicado
 
 Mais detalhes técnicos em [docs/contexto-ia-atv_07.md](docs/contexto-ia-atv_07.md).
+
+### Atividade 8: Normalização de Dados e Arquitetura de Software
+
+Aplicação prática das **Formas Normais (1FN, 2FN e 3FN)** por meio da análise de diferentes cenários de modelagem, identificando redundâncias, dependências funcionais e propondo estruturas de banco de dados normalizadas.
+
+- **Diagnóstico da 1FN:** identificação de atributos multivalorados e aplicação da atomicidade
+- **Diagnóstico da 3FN:** remoção de dependências transitivas no modelo de vendas
+- **Normalização em Cadeia:** aplicação sequencial da 1FN, 2FN e 3FN em um sistema de restaurante
+- **Diagnóstico da 2FN:** identificação de dependências parciais no sistema de biblioteca
+- **Desafio Master:** modelagem completa de um sistema de clínica utilizando entidades, PKs e FKs em 3FN
+- **Documentação Técnica:** diagramas desenvolvidos em DBML com representação visual no [dbdiagram.io](https://dbdiagram.io/home)
+
+Mais detalhes em [docs/atv_08-banco-de-dados/README.md](docs/atv_08-banco-de-dados/README.md).
 
 ## 📃 Certificado de Conclusão
 

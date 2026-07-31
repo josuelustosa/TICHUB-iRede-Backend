@@ -1,0 +1,30 @@
+Table Matricula {
+  matricula_id int [not null]
+  disciplina_id int [not null]
+  professor_id int [not null]
+
+  indexes {
+    (matricula_id, disciplina_id, professor_id) [pk]
+  }
+
+  Note: "Relaciona um aluno às disciplinas e professores."
+}
+
+Table Aluno {
+  matricula_id int [pk]
+  aluno_nome varchar
+}
+
+Table Disciplina {
+  disciplina_id int [pk]
+  disciplina_nome varchar
+}
+
+Table Professor {
+  professor_id int [pk]
+  professor_nome varchar
+}
+
+Ref: Matricula.matricula_id > Aluno.matricula_id
+Ref: Matricula.disciplina_id > Disciplina.disciplina_id
+Ref: Matricula.professor_id > Professor.professor_id
